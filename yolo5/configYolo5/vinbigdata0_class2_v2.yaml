@@ -1,0 +1,8 @@
+names:
+- Calcification
+nc: 1
+
+# train and val datasets (image directory or *.txt file with image paths)
+train: ../Data/convertor_class2_v2/0/images/train
+val:  ../Data/convertor_class2_v2/0/images/val
+
