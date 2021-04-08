@@ -4,15 +4,18 @@ import pandas as pd
 from tqdm.auto import tqdm
 import shutil as sh
 
+CUR_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+print('CUR_PATH', CUR_PATH)
+
 image_id_column = 'image_id'
 fold_column = 'fold'
 label_column = 'class_id'
 
-train_df = pd.read_csv('train.csv')
+train_df = pd.read_csv(f'{CUR_PATH}train.csv')
 print(len(train_df[image_id_column].unique()), 'images')
 print(len(train_df), 'boxes')
 
-label_dir = 'yolo_labels_sep_rads/'
+label_dir = f'{CUR_PATH}yolo_labels_sep_rads/'
 if not os.path.exists(label_dir):
     os.makedirs(label_dir)
 
@@ -20,7 +23,7 @@ if not os.path.exists(label_dir):
 print(len(train_df[image_id_column].unique()), 'images')
 print(len(train_df), 'boxes')
 
-old_yolo_train_df = pd.read_csv('train_with_size.csv')
+old_yolo_train_df = pd.read_csv(f'{CUR_PATH}train_with_size.csv')
 train_meta_df = old_yolo_train_df[[image_id_column, 'width', 'height']].drop_duplicates()
 print(train_meta_df.head())
 

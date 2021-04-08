@@ -4,12 +4,15 @@ import pandas as pd
 from tqdm.auto import tqdm
 import shutil as sh
 
+CUR_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+print('CUR_PATH', CUR_PATH)
+
 image_id_column = 'image_id'
 fold_column = 'fold'
 label_column = 'class_id'
 rad_id_column = 'rad_id'
 
-original_boxes_df = pd.read_csv('train.csv')
+original_boxes_df = pd.read_csv(f'{CUR_PATH}train.csv')
 empty_images_ids = set(original_boxes_df.loc[original_boxes_df[label_column] == 14, image_id_column].unique())
 print(len(empty_images_ids), 'original images without boxes')
 
@@ -19,15 +22,15 @@ major_rads = set(original_boxes_df.loc[original_boxes_df[rad_id_column] == 'R8',
 major_rads = major_rads - empty_images_ids
 print('major rads images', len(major_rads))
 
-hard_negative_images_df = pd.read_csv('hard_empty_images.csv')
+hard_negative_images_df = pd.read_csv(f'{CUR_PATH}hard_empty_images.csv')
 hard_negative_images = set(hard_negative_images_df[image_id_column].values)
 print(len(hard_negative_images), 'hard negative images')
 
-train_images_df = pd.read_csv('roma_kfold_split_5_42.csv')
+train_images_df = pd.read_csv(f'{CUR_PATH}roma_kfold_split_5_42.csv')
 
-label_dir = 'yolo_labels_sep_rads/'
-image_dir = '../../Data/Images_1024_yolo/train/'
-convertor_folder = 'converter_stage2'
+label_dir = f'{CUR_PATH}yolo_labels_sep_rads/'
+image_dir = f'{CUR_PATH}../../../Data/Images_1024_yolo/train/'
+convertor_folder = f'{CUR_PATH}converter_stage2'
 
 for fold in range(5):
     images_val = train_images_df.loc[train_images_df[fold_column] == fold, image_id_column].values
