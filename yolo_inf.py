@@ -3,8 +3,11 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import cv2
 
+CUR_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+print('CUR_PATH', CUR_PATH)
+
 import sys
-sys.path.append("yolo5")
+sys.path.append(CUR_PATH + "yolo5")
 from utils.datasets import *
 from utils.general import *
 import ytest  # import test.py to get mAP after each epoch
@@ -322,7 +325,7 @@ if __name__ == '__main__':
 
     for fold in range(5):
         print('fold', fold)
-        weights = f'weights/stage{stage}_fold{fold}.pt'
+        weights = f'{CUR_PATH}weights/stage{stage}_fold{fold}.pt'
         pred_boxes, pred_scores, pred_labels = predict_for_files(weights, folder, imagenames, 640, is_TTA)
 
         # Scale to initial size
@@ -343,4 +346,4 @@ if __name__ == '__main__':
         all_folds_labels.append(pred_labels)
 
     result_boxes, result_scores, result_labels = merge_boxes_from_models(all_folds_boxes, all_folds_scores, all_folds_labels, len(image_ids), 0.4)
-    write_submission(image_ids, result_boxes, result_scores, result_labels, 0, f'yolo_stage{stage}_all_folds.csv')
+    write_submission(image_ids, result_boxes, result_scores, result_labels, 0, f'{CUR_PATH}yolo_stage{stage}_all_folds.csv')
