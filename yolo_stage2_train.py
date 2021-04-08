@@ -20,8 +20,11 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
+CUR_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+print('CUR_PATH', CUR_PATH)
+
 import sys
-sys.path.append("yolo5")
+sys.path.append(CUR_PATH + "yolo5")
 from models.yolo import Model
 from utils import google_utils
 from utils.datasets import *
@@ -446,10 +449,10 @@ def train(hyp, opt, device, tb_writer=None, wandb=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='weights/stage1_fold0.pt', help='initial weights path')
-    parser.add_argument('--cfg', type=str, default='yolo5/configYolo5/yolov5x_roma.yaml', help='model.yaml path')
-    parser.add_argument('--data', type=str, default='yolo5/configYolo5/vinbigdata0_stage2.yaml', help='data.yaml path')
-    parser.add_argument('--hyp', type=str, default='stage2_params.yaml', help='hyperparameters path')
+    parser.add_argument('--weights', type=str, default=f'{CUR_PATH}weights/stage1_fold0.pt', help='initial weights path')
+    parser.add_argument('--cfg', type=str, default=f'{CUR_PATH}yolo5/configYolo5/yolov5x_roma.yaml', help='model.yaml path')
+    parser.add_argument('--data', type=str, default=f'{CUR_PATH}yolo5/configYolo5/vinbigdata0_stage2.yaml', help='data.yaml path')
+    parser.add_argument('--hyp', type=str, default=f'{CUR_PATH}stage2_params.yaml', help='hyperparameters path')
     parser.add_argument('--epochs', type=int, default=15)
     parser.add_argument('--batch-size', type=int, default=6, help='total batch size for all GPUs')
     parser.add_argument('--img-size', nargs='+', type=int, default=[640, 640], help='[train, test] image sizes')
