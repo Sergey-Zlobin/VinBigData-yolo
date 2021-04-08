@@ -21,17 +21,11 @@ same as at Stage 1.
 
 ```
 python net_sergey_yolo/data/create_yolo_labels_separate_rads.py
-
 python net_sergey_yolo/data/yolo_converter_stage2.py
-
 python net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold0.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata0_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-
 python net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold1.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata1_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-
 python net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold2.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata2_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-
 python net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold3.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata3_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-
 python net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold4.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata4_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
 ```
 
@@ -44,7 +38,6 @@ To run inference on the test set for both stages:
 
 ```
 python yolo\_inf.py --stage 1
-
 python yolo\_inf.py --stage 2
 ```
 
@@ -54,6 +47,5 @@ After that it’s needed to run postprocessing:
 
 ```
 python postprocess.py -f yolo\_stage1\_all\_folds.csv
-
 python postprocess.py -f yolo\_stage2\_all\_folds.csv
 ```
