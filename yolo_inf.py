@@ -4,7 +4,7 @@ import os
 import cv2
 
 import sys
-sys.path.append("../yolo5")
+sys.path.append("yolo5")
 from utils.datasets import *
 from utils.general import *
 import ytest  # import test.py to get mAP after each epoch
@@ -343,4 +343,4 @@ if __name__ == '__main__':
         all_folds_labels.append(pred_labels)
 
     result_boxes, result_scores, result_labels = merge_boxes_from_models(all_folds_boxes, all_folds_scores, all_folds_labels, len(image_ids), 0.4)
-    write_submission(image_ids, result_boxes, result_scores, result_labels, 0, f'stage{stage}_all_folds.csv')
+    write_submission(image_ids, result_boxes, result_scores, result_labels, 0, f'yolo_stage{stage}_all_folds.csv')
