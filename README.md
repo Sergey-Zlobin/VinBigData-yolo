@@ -1,5 +1,7 @@
 **VinBigData Chest X-ray Abnormalities Detection**
 
+I suppose tthe content of this repository will be copied into "net_sergey_yolo" directory of the final solution.
+
 **Yolo v5 training**
 
 **Stage 1.** At first, we produce the “average” boxes from original
