@@ -311,7 +311,7 @@ if __name__ == '__main__':
     print(f'inference for stage {stage}')
 
     is_TTA = True
-    folder = '../Data/Images_1024_yolo/test'
+    folder = f'{CUR_PATH}data/test/'
     imagenames = os.listdir(folder)
     # For debugging
     # imagenames = imagenames[:10]
@@ -329,7 +329,7 @@ if __name__ == '__main__':
         pred_boxes, pred_scores, pred_labels = predict_for_files(weights, folder, imagenames, 640, is_TTA)
 
         # Scale to initial size
-        test_scaled_meta_df = pd.read_csv('../Data/Images_1024_yolo/test.csv')
+        test_scaled_meta_df = pd.read_csv(f'{CUR_PATH}data/test.csv')
         for i, image in enumerate(image_ids):
             image_id = image_ids[i]
             image_width, image_height = test_scaled_meta_df.loc[test_scaled_meta_df[image_id_column] == image_id, ['width', 'height']].values[0]
