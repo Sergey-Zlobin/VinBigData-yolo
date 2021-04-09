@@ -29,7 +29,7 @@ print(len(hard_negative_images), 'hard negative images')
 train_images_df = pd.read_csv(f'{CUR_PATH}roma_kfold_split_5_42.csv')
 
 label_dir = f'{CUR_PATH}yolo_labels_sep_rads/'
-image_dir = f'{CUR_PATH}../../../Data/Images_1024_yolo/train/'
+image_dir = f'{CUR_PATH}vinbigdata/train/'
 convertor_folder = f'{CUR_PATH}converter_stage2'
 
 for fold in range(5):
