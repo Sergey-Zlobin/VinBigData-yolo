@@ -1,7 +1,5 @@
 **VinBigData Chest X-ray Abnormalities Detection**
 
-I suppose the content of this repository will be copied into "net_sergey_yolo" directory of the final solution.
-
 **Yolo v5 training**
 
 **Stage 1.** At first, we produce the “average” boxes from original
@@ -12,7 +10,7 @@ horizontally flipped image and then combined their predictions (Test
 Time Augmentation) using WBF. Predictions from folds are combined using
 WBF too.
 
-It was done in another script.
+It was done in another script (see "part_zfturbo").
 
 **Stage 2.** At this stage we excluded all images from ‘R8’, ‘R9’ and
 ‘R10’ radiologists. Every image with boxes was tripled using 3 variants
@@ -24,14 +22,20 @@ starting from weights obtained at the previous stage. Inference is the
 same as at Stage 1.
 
 ```
-./net_sergey_yolo/download_train_data.sh
-python3 net_sergey_yolo/data/create_yolo_labels_separate_rads.py
-python3 net_sergey_yolo/data/yolo_converter_stage2.py
-python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold0.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata0_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold1.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata1_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold2.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata2_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold3.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata3_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
-python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold4.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata4_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
+./download_train_data.sh
+python3 data/create_yolo_labels_separate_rads.py
+python3 data/yolo_converter_stage2.py
+python3 yolo_stage2_train.py --weights ./weights/stage1_fold0.pt --cfg ./yolo5/configYolo5/yolov5x_roma.yaml --data ./yolo5/configYolo5/vinbigdata0_stage2.yaml --hyp stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./runs/train --workers 2
+python3 yolo_stage2_train.py --weights ./weights/stage1_fold1.pt --cfg ./yolo5/configYolo5/yolov5x_roma.yaml --data ./yolo5/configYolo5/vinbigdata1_stage2.yaml --hyp stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./runs/train --workers 2
+python3 yolo_stage2_train.py --weights ./weights/stage1_fold2.pt --cfg ./yolo5/configYolo5/yolov5x_roma.yaml --data ./yolo5/configYolo5/vinbigdata2_stage2.yaml --hyp stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./runs/train --workers 2
+python3 yolo_stage2_train.py --weights ./weights/stage1_fold3.pt --cfg ./yolo5/configYolo5/yolov5x_roma.yaml --data ./yolo5/configYolo5/vinbigdata3_stage2.yaml --hyp stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./runs/train --workers 2
+python3 yolo_stage2_train.py --weights ./weights/stage1_fold4.pt --cfg ./yolo5/configYolo5/yolov5x_roma.yaml --data ./yolo5/configYolo5/vinbigdata4_stage2.yaml --hyp stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./runs/train --workers 2
+
+cp ./runs/train/exp/weights/best.pt ./weights/stage2_fold0.pt
+cp ./runs/train/exp2/weights/best.pt ./weights/stage2_fold1.pt
+cp ./runs/train/exp3/weights/best.pt ./weights/stage2_fold2.pt
+cp ./runs/train/exp4/weights/best.pt ./weights/stage2_fold3.pt
+cp ./runs/train/exp5/weights/best.pt ./weights/stage2_fold4.pt
 ```
 
 Files “best.pt“ from folders “runs\\train\\exp\\weights”,
@@ -42,18 +46,18 @@ Files “best.pt“ from folders “runs\\train\\exp\\weights”,
 The weights should be in the “weights” folder (from training or by download_weights.sh).
 
 ```
-./net_sergey_yolo/download_weights.sh
+./download_weights.sh
 ```
 
 To run inference on the test set for stage2 (stage 1 was done in another script):
 
 ```
-./net_sergey_yolo/download_test_data.sh
-python3 net_sergey_yolo/yolo_inf.py --stage 2
+./download_test_data.sh
+python3 yolo_inf.py --stage 2
 ```
 
 After that it’s needed to run postprocessing:
 
 ```
-python3 net_sergey_yolo/postprocess.py -f net_sergey_yolo/yolo_stage2_all_folds.csv
+python3 postprocess.py -f yolo_stage2_all_folds.csv
 ```
