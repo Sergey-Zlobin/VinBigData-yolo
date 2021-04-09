@@ -24,6 +24,7 @@ starting from weights obtained at the previous stage. Inference is the
 same as at Stage 1.
 
 ```
+./net_sergey_yolo/download_train_data.sh
 python3 net_sergey_yolo/data/create_yolo_labels_separate_rads.py
 python3 net_sergey_yolo/data/yolo_converter_stage2.py
 python3 net_sergey_yolo/yolo_stage2_train.py --weights ./net_sergey_yolo/weights/stage1_fold0.pt --cfg ./net_sergey_yolo/yolo5/configYolo5/yolov5x_roma.yaml --data ./net_sergey_yolo/yolo5/configYolo5/vinbigdata0_stage2.yaml --hyp net_sergey_yolo/stage2_params.yaml --batch-size 6 --epochs 15 --img-size 640 --project ./net_sergey_yolo/runs/train --workers 2
