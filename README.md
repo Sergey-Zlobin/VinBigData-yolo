@@ -10,6 +10,8 @@ horizontally flipped image and then combined their predictions (Test
 Time Augmentation) using WBF. Predictions from folds are combined using
 WBF too.
 
+It was done in another script.
+
 **Stage 2.** At this stage we excluded all images from ‘R8’, ‘R9’ and
 ‘R10’ radiologists. Every image with boxes was tripled using 3 variants
 of boxes (there are 248 images, after tripling they become 248 \* 3 =
@@ -34,11 +36,11 @@ Files “best.pt“ from folders “runs\\train\\exp\\weights”,
 
 **Yolo v5 inference**
 
-To run inference on the test set for both stages:
+To run inference on the test set for stage2 (stage 1 was done in another script):
 
 ```
-python yolo\_inf.py --stage 1
-python yolo\_inf.py --stage 2
+./net_sergey_yolo/download_test_data.sh
+python net_sergey_yolo/yolo_inf.py --stage 2
 ```
 
 The weights should be in the “weights” folder.
@@ -46,6 +48,5 @@ The weights should be in the “weights” folder.
 After that it’s needed to run postprocessing:
 
 ```
-python postprocess.py -f yolo\_stage1\_all\_folds.csv
-python postprocess.py -f yolo\_stage2\_all\_folds.csv
+python net_sergey_yolo/postprocess.py -f net_sergey_yolo/yolo_stage2_all_folds.csv
 ```
